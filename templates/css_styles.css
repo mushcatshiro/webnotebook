@@ -9,3 +9,18 @@ title {
 body {
 	font-size: 16;
 }
+
+#content {
+	grid-column: 1fr 2fr;
+	grid-gap: 3px;
+	/*align-content: ;*/
+	justify-content: center;
+}
+
+#nav {
+	display: grid;
+	grid-column: ;
+	grid-row: ;
+	border-radius: 10px;
+	padding: 1em;
+}
