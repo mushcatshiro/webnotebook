@@ -8,11 +8,12 @@ title {
 
 body {
 	font-size: 16;
+	background-color: silver;
 	display: grid;
 	grid-template-columns: 1fr 4fr 1fr;
-/*	grid-template-rows: auto;*/
 	grid-template-areas: 
 		".. content ..";
+	grid-auto-rows: 800px;
 }
 
 div#pad1 {
@@ -25,10 +26,14 @@ div#pad2 {
 
 div#content {
 	grid-area: content;
+	border-radius: 10px;
 	display: grid;
 	grid-template-columns: 1fr 2fr;
 	grid-template-areas: 
 		"nav livetiles";
+	background-color: DarkCyan;
+	grid-gap: 5px;
+	padding: 10px;
 	/*align-content: ;
 	justify-content: center;*/
 }
@@ -36,10 +41,23 @@ div#content {
 div#nav {
 	grid-area: nav;
 	border-radius: 10px;
-	padding: 1em;
-	background-color: #FFF;
+	padding: 10px;
+	background-color: #f0f0f0;
 }
 
 div#livetiles {
 	grid-area: livetiles;
+	border-radius: 10px;
+	padding: 10px;
+	background-color: rgb(12, 32, 44);
+}
+
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 2px;
+  background-color: #efefef;
+  text-align: center;
 }
