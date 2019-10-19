@@ -2,15 +2,23 @@
 <html>
 <head>
 	<title>web based notebook</title>
-	<link href="css_styles.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<div id="nav">
-		right box add post, search
+	<div id="pad1">
+		padding
 	</div>
-	<div>
-		{% block body %}
-		{% endblock %}
+	<div id="content">
+		<div id="nav">
+			right box add post, search
+		</div>
+		<div id="livetiles">
+			{% block tiles %}
+			{% endblock %}
+		</div>
+	</div>
+	<div id="pad2">
+		padding
 	</div>
 
 </body>
