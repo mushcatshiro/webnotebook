@@ -9,7 +9,7 @@ title {
 body {
 	font-size: 16;
 	display: grid;
-	grid-template-columns: 1fr 2fr 1fr;
+	grid-template-columns: 1fr 4fr 1fr;
 /*	grid-template-rows: auto;*/
 	grid-template-areas: 
 		".. content ..";
@@ -25,16 +25,21 @@ div#pad2 {
 
 div#content {
 	grid-area: content;
-/*	display: grid;
-	grid-column: 1fr 2fr;
-	grid-gap: 3px;
-	/*align-content: ;*/
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	grid-template-areas: 
+		"nav livetiles";
+	/*align-content: ;
 	justify-content: center;*/
 }
 
 div#nav {
-	grid-area: content;
+	grid-area: nav;
 	border-radius: 10px;
 	padding: 1em;
 	background-color: #FFF;
+}
+
+div#livetiles {
+	grid-area: livetiles;
 }
