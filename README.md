@@ -17,7 +17,7 @@ static navigation bar left
 
 dynamic content right
 
-live tiles
+	live tiles
 
 	- if no content just show random boxes
 	- upon searches will run regex to retrieve boxes to show
@@ -25,7 +25,7 @@ live tiles
 	- if valid also shows related boxes
 	- allow delete/modification (implement later)
 
-new post
+	new post
 
 	- keyword column
 	- text box with word limitation
@@ -35,24 +35,30 @@ new post
 
 ### back end
 
-new post
+#### to modify architecture to web api instead of web application for better BE/FE separation
+
+	new post
 
 	- text analysis
 	- label and save to csv
 
-get random text for live tiles
+	get random text for live tiles
 
 	- generate random value and pull rows accordingly from csv
 	- end game to have some algorithm to determine user preference/ interest
 
-post modification
+	knowledge relation
+
+	- to establish relation between post based on text analysis
+
+	post modification
 
 	- allow delete/modification (implement later)
 
 
 ### expected dependencies
 
-	- pandas
+	- pandas (needed for faster filtering)
 	- os
 	- js
 	- auth?
