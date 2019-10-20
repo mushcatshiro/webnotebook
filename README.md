@@ -10,7 +10,7 @@ planned further features is to make it into THE ultimate text editor
 
 static navigation bar left
 
-navbar with 
+	navbar with 
 
 	- search (real time search)
 	- new post
