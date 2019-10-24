@@ -1,15 +1,13 @@
-{% extends "layout.html" %}
-{% block tiles %}
+{% extends "bootstrap/base.html" %}
+{% block title %}This is an example page{% endblock %}
 
-	{{ super() }}
-	random post test
-	random post test
-	random post test
-	random post test
-	random post test
-	random post test
-
-	random post test
-	random post test
-
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+	<ul>
+	        <li>1</li>
+	        <li>2</li>
+	        <li>3</li>
+	</ul>
+  <!-- ... -->
+</div>
 {% endblock %}

@@ -1,6 +1,8 @@
 from flask import Flask, render_template, redirect, url_for, jsonify
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+Bootstrap(app)
 
 @app.route('/')
 def index():
@@ -18,7 +20,7 @@ def add_post():
 
 # to be modified to suit rest api, how to route?
 @app.route('/search', methods = ['POST'])
-def search();
+def search():
 	return jsonify(ret_value)
 
 
