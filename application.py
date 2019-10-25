@@ -1,12 +1,10 @@
-from flask import Flask, render_template, redirect, url_for, jsonify
+from flask import Flask, render_template, redirect, url_for, jsonify, send_from_directory
 from flask_bootstrap import Bootstrap
 
-app = Flask(__name__)
+# app = Flask(__name__)
+# app = Flask(__name__, static_folder='client/build')
+app = Flask(__name__, static_folder="client/build/static", template_folder="client/build")
 Bootstrap(app)
-
-@app.route('/')
-def index():
-	return render_template('index.html')
 
 # future scale requires orm?
 # form communication with FE react.js
@@ -23,6 +21,11 @@ def add_post():
 def search():
 	return jsonify(ret_value)
 
+@app.route('/')
+def index():
+        return render_template('index.html')
+        # return send_from_directory(app.static_folder, 'index.html')
+	# return render_template('index.html')
 
 if __name__ == '__main__':
-	app.run(debug = True)
+	app.run(debug = True, port = 3003)
