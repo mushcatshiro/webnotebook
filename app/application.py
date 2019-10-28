@@ -6,6 +6,8 @@ from flask_bootstrap import Bootstrap
 app = Flask(__name__, static_folder="client/build/static", template_folder="client/build")
 Bootstrap(app)
 
+status_green = "complete"
+
 # future scale requires orm?
 # form communication with FE react.js
 @app.route('/add_post', methods = ['POST'])
