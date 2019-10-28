@@ -1,0 +1,4 @@
+.main-navbar > ul > li:hover {
+  font-weight: bold;
+  text-decoration: underline;
+}
