@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, jsonify, send_from_directory
+from flask import Flask, render_template, redirect, url_for, jsonify, send_from_directory, session
 from flask_bootstrap import Bootstrap
 
 # app = Flask(__name__)
@@ -23,9 +23,13 @@ def add_post():
 def search():
 	return jsonify(ret_value)
 
-@app.route('/')
+@app.route('/', methods = ['POST'])
 def index():
-        return render_template('index.html')
+	form = request.form.get('signIn')
+	if form.validate_on_submit():
+		pass
+		return redirect(url_for('.index'))
+    return render_template('index.html', form = form, name = session.get('name'), known = session.get('known', false))
         # return send_from_directory(app.static_folder, 'index.html')
 	# return render_template('index.html')
 
