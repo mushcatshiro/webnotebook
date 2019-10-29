@@ -1,0 +1,4 @@
+postId,userId,title,content,relatedId,resource
+1,1,electron,"The electron is a subatomic particle, symbol e− or β−,whose electric charge is negative one elementary charge",1,[]
+2,1,proton,"A proton is a subatomic particle, symbol p or p+, with a positive electric charge of +1e elementary charge and a mass slightly less than that of a neutron","1,2",[]
+3,1,neutron,"The neutron is a subatomic particle, symbol n or n0, with no net electric charge and a mass slightly greater than that of a proton","1,2,3",[]
