@@ -8,13 +8,13 @@ class config:
 	def init_app(app):
 		pass
 
-class devConfig(Config):
+class devConfig(config):
 	DEBUG = True
 
-class TestConfig(Config):
+class TestConfig(config):
 	TESTING = True
 
-class production(Config):
+class production(config):
 	"""docstring for production"""
 	pass
 
