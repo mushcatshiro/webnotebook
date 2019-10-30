@@ -3,47 +3,47 @@
 # define output
 import pandas as pd
 import json
+import os
 
-class kPost(object):
+
+class kPost:
 	"""docstring for kPost"""
-	def __init__(self):
-		self.ret_val = None
 
 	def create_row(self, input_):
 		# missing postId and userId solution
 		# required to test out resource
 		data = json.dumps(input_)
 		df = pd.read_json(data)
-		df.to_csv("storage.csv", mode="a", index=False, header=False)
+		df.to_csv("../storage.csv", mode="a", index=False, header=False)
 		return "complete"
 
 	def read_row(self, title):
-		df = pd.read_csv("storage.csv")
+		df = pd.read_csv("../storage.csv")
 		# search by title return list of row numbers
-		row_list = df.index[df["title"].str.contains(title) == True].tolist()
-		self.ret_val = []
-		for row_num in row_list:
+		rowList = df.index[df["title"].str.contains(title) == True].tolist()
+		returnValue = []
+		for row_num in rowList:
 			my_dict ={key:value for key, value in zip(df.columns.to_list(), df.loc[row_num, :])}
-			self.ret_val.append(my_dict)
-		return self.ret_val
+			returnValue.append(my_dict)
+		return returnValue
 
 	def update_row(self, input_):
 		postId = input_[0]['postId']
 		data = json.dumps(input_)
 		df = pd.read_json(data)
-		storageDf = pd.read_csv('storage.csv')
+		storageDf = pd.read_csv('../storage.csv')
 		targetIndex = storageDf[storageDf['postId'] == int(postId)].index
 		storageDf.drop(targetIndex, inplace=True)
 		storageDf = storageDf.append(df)
 		storageDf.reset_index()
-		storageDf.to_csv("storage.csv", index=False)
+		storageDf.to_csv("../storage.csv", index=False)
 		return 'complete'
 
 	def delete_row(self, title):
-		df = pd.read_csv('storage.csv')
+		df = pd.read_csv('../storage.csv')
 		targetIndex = df[df['title'] == title].index
 		df.drop(targetIndex, inplace=True)
-		df.to_csv("storage.csv", index=False)
+		df.to_csv("../storage.csv", index=False)
 		return 'complete'
 
 def test_kPost(**kwargs):
@@ -55,19 +55,24 @@ def test_kPost(**kwargs):
 
 	# print(result)
 
-class userPost(kPost):
+class user:
 	"""docstring for UserPost"""
 	def __init__(self):
-		super(kPost, self).__init__()
-		self.arg = None
+		pass
 
-	def display_userPost(self):
-		result = kPost.read_row(self, title = 'electron')
-		return result
+	def display_userPost(self, userId):
+		df = pd.read_csv("/home/mushcat/webnotebook/storage.csv", dtype=str)
+		# search by title return list of row numbers
+		rowList = df.index[df["userId"] == str(userId)].tolist()
+		returnValue = []
+		for row_num in rowList:
+			my_dict ={key:value for key, value in zip(df.columns.to_list(), df.loc[row_num, :])}
+			returnValue.append(my_dict)
+		return returnValue
 
-def test_userPost():
-	new = userPost()
-	result = new.display_userPost()
+def test_user():
+	new = user()
+	result = new.display_userPost(1)
 	print(result)
 
 		
@@ -81,9 +86,11 @@ def test_userPost():
 	"resource": [{}]
 	# to be designed
 }
-"""
+
 
 input_ = [{"postId": "3", "userId": "2", "title": "neutron", "content": "The neutron is a subatomic particle, symbol n or n0, with no net electric charge and a mass slightly greater than that of a proton", "relatedId": "1,2,3", "resource": "[]"}]
+"""
 
 # test_kPost(input_= input_)
-test_userPost()
+test_user()
+# print(os.getcwd())
