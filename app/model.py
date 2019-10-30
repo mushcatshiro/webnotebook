@@ -3,47 +3,61 @@
 # define output
 import pandas as pd
 import json
-import os
+import random
+# import os
 
+def postSearching(rowList = None, dfLen = None, df = None):
+	if rowList is None:
+		rowList = range(dfLen)
+	returnValue = []
+	for row_num in rowList:
+		my_dict ={key:value for key, value in zip(df.columns.to_list(), df.loc[row_num, :])}
+		returnValue.append(my_dict)
+	return returnValue
 
 class kPost:
 	"""docstring for kPost"""
 
-	def create_row(self, input_):
+	def createRow(self, input_):
 		# missing postId and userId solution
 		# required to test out resource
 		data = json.dumps(input_)
 		df = pd.read_json(data)
-		df.to_csv("../storage.csv", mode="a", index=False, header=False)
+		df.to_csv("/home/mushcat/webnotebook/storage.csv", mode="a", index=False, header=False)
 		return "complete"
 
-	def read_row(self, title):
-		df = pd.read_csv("../storage.csv")
+	def readRow(self, title=None, total=None):
+		df = pd.read_csv("/home/mushcat/webnotebook/storage.csv", dtype=str)
 		# search by title return list of row numbers
-		rowList = df.index[df["title"].str.contains(title) == True].tolist()
-		returnValue = []
-		for row_num in rowList:
-			my_dict ={key:value for key, value in zip(df.columns.to_list(), df.loc[row_num, :])}
-			returnValue.append(my_dict)
-		return returnValue
+		if title is not None:
+			rowList = df.index[df["title"] == str(title)].tolist()
+			return postSearching(rowList=rowList, df = df)
+		elif total is not None:
+			dfLen = len(df)
+			if dfLen < total:
+				return postSearching(dfLen = dfLen, df = df)
+			returnPostList = random.choices(range(dfLen), k = total)
+			return postSearching(rowList = returnPostList, df = df)
+		else:
+			return "error"
 
-	def update_row(self, input_):
+	def updateRow(self, input_):
 		postId = input_[0]['postId']
 		data = json.dumps(input_)
 		df = pd.read_json(data)
-		storageDf = pd.read_csv('../storage.csv')
+		storageDf = pd.read_csv('/home/mushcat/webnotebook/storage.csv')
 		targetIndex = storageDf[storageDf['postId'] == int(postId)].index
 		storageDf.drop(targetIndex, inplace=True)
 		storageDf = storageDf.append(df)
 		storageDf.reset_index()
-		storageDf.to_csv("../storage.csv", index=False)
+		storageDf.to_csv("/home/mushcat/webnotebook/storage.csv", index=False)
 		return 'complete'
 
-	def delete_row(self, title):
-		df = pd.read_csv('../storage.csv')
+	def deleteRow(self, title):
+		df = pd.read_csv('/home/mushcat/webnotebook/storage.csv')
 		targetIndex = df[df['title'] == title].index
 		df.drop(targetIndex, inplace=True)
-		df.to_csv("../storage.csv", index=False)
+		df.to_csv("/home/mushcat/webnotebook/storage.csv", index=False)
 		return 'complete'
 
 def test_kPost(**kwargs):
@@ -65,10 +79,7 @@ class user:
 		# search by title return list of row numbers
 		rowList = df.index[df["userId"] == str(userId)].tolist()
 		returnValue = []
-		for row_num in rowList:
-			my_dict ={key:value for key, value in zip(df.columns.to_list(), df.loc[row_num, :])}
-			returnValue.append(my_dict)
-		return returnValue
+		return postSearching(rowList = rowList, df = df)
 
 def test_user():
 	new = user()
@@ -92,5 +103,5 @@ input_ = [{"postId": "3", "userId": "2", "title": "neutron", "content": "The neu
 """
 
 # test_kPost(input_= input_)
-test_user()
+# test_user()
 # print(os.getcwd())
