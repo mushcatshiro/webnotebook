@@ -18,7 +18,7 @@ class NavBar extends Component {
 
         {/* Collapse button to show up when screen width is small enough */}
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarText"
@@ -26,10 +26,10 @@ class NavBar extends Component {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse main-navbar" id="navbarText">
+        <div className="collapse navbar-collapse main-navbar" id="navbarText">
           <ul className="navbar-nav mr-auto">
             {this.state.navLinks.map(navLink => (
               <li
