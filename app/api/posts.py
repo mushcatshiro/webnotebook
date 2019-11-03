@@ -1,12 +1,16 @@
 from flask import jsonify, request, current_app, url_for
 from . import api
-from ..model import kPost, user
+from ..model import kPost#, user
+
 
 @api.route('/post/<int:userId>', methods=['GET' ,'POST'])
 def get_userPost(userId):
-    user_ = user() 
-    userPost = user_.display_userPost(userId=userId)
-    return jsonify(userPost)
+    kPost_ = kPost() 
+    userPost = kPost_.display_userPost(userId=userId)
+    response = jsonify(userPost)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    print(response)
+    return response
 
 @api.route('/post/<title>', methods=['GET' ,'POST'])
 def searchPost_bytitle(title):
@@ -18,7 +22,7 @@ def searchPost_bytitle(title):
 @api.route('/posts/', methods=['GET' ,'POST'])
 def searchPost(num = None):
     if num is None:
-        num = 2
+        num = 3
     kPost_ = kPost() 
     returnPost = kPost_.readRow(total=num)
     return jsonify(returnPost)

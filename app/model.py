@@ -4,6 +4,8 @@
 import pandas as pd
 import json
 import random
+# from . import db
+from werkzeug.security import generate_password_hash, check_password_hash
 # import os
 
 def postSearching(rowList = None, dfLen = None, df = None):
@@ -60,20 +62,6 @@ class kPost:
 		df.to_csv("/home/mushcat/webnotebook/storage.csv", index=False)
 		return 'complete'
 
-def test_kPost(**kwargs):
-	new = kPost()
-	# result = new.create_row(input_=input_)
-	# result = new.read_row('electron')
-	# result = new.update_row(input_)
-	# result = new.delete_row('electron')
-
-	# print(result)
-
-class user:
-	"""docstring for UserPost"""
-	def __init__(self):
-		pass
-
 	def display_userPost(self, userId):
 		df = pd.read_csv("/home/mushcat/webnotebook/storage.csv", dtype=str)
 		# search by title return list of row numbers
@@ -81,10 +69,49 @@ class user:
 		returnValue = []
 		return postSearching(rowList = rowList, df = df)
 
-def test_user():
+# class user(db.Model):
+# 	"""docstring for user"""
+# 	userId = db.Column(db.Integer, primary_key = True)
+# 	userName = db.Column(db.String(8), unique = True, index = True)
+# 	email = db.Column(db.String(64), unique=True, index=True)
+# 	password_hash = db.Column(db.String(128))
+
+# 	@property
+# 	def password(self):
+# 		raise AttributeError('password is not a readable attribute')
+
+# 	@password.setter
+# 	def password(self, password):
+# 		self.password_hash = generate_password_hash(password)
+
+# 	def verify_password(self, password):
+# 		return check_password_hash(self.password_hash, password)
+
+# 	@staticmethod
+# 	def reset_password(token, new_password):
+# 		s = Serializer(current_app.config['SECRET_KEY'])
+# 		try:
+# 			data = s.loads(token.encode('utf-8'))
+# 		except:
+# 			return False
+# 		user = User.query.get(data.get('reset'))
+# 		if user is None:
+# 			return False
+# 		user.password = new_password
+# 		db.session.add(user)
+# 		return True
+
+def test_kPost(**kwargs):
+	# new = kPost()
+	# result = new.create_row(input_=input_)
+	# result = new.read_row('electron')
+	# result = new.update_row(input_)
+	# result = new.delete_row('electron')
+
 	new = user()
 	result = new.display_userPost(1)
-	print(result)
+
+	# print(result)
 
 		
 """

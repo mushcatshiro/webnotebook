@@ -8,19 +8,20 @@ class config:
 	def init_app(app):
 		pass
 
-class devConfig(config):
+class DevConfig(config):
 	DEBUG = True
+	# SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL')
 
 class TestConfig(config):
 	TESTING = True
 
-class production(config):
+class Production(config):
 	"""docstring for production"""
 	pass
 
 config = {
-	'development': devConfig,
+	'development': DevConfig,
 	'testing': TestConfig,
-	'production': production,
-	'default': devConfig
+	'production': Production,
+	'default': DevConfig
 }
