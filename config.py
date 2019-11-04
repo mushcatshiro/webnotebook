@@ -1,5 +1,7 @@
 import os
 
+basedir = os.oth.abspath(os.path.dirname(__file__))
+
 class config:
 	"""docstring for config"""
 	SECRET_KEY = os.environ.get('SECRET_KEY') or "r4Nd0mS5cRe7"
@@ -10,7 +12,7 @@ class config:
 
 class DevConfig(config):
 	DEBUG = True
-	# SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL')
+	SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(basedir, 'data-dev.sqlite')
 
 class TestConfig(config):
 	TESTING = True

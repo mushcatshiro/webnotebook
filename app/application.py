@@ -1,41 +1,21 @@
-from flask import Flask, render_template, redirect, url_for, jsonify, send_from_directory, session
-from flask_bootstrap import Bootstrap
+from flask import Flask, render_template, redirect, url_for, jsonify, session
+from . import kPost, user
 
-# app = Flask(__name__)
-# app = Flask(__name__, static_folder='client/build')
-app = Flask(__name__, static_folder="client/build/static", template_folder="client/build")
-Bootstrap(app)
+app = Flask(__name__)
+
 
 status_green = "complete"
 
-# future scale requires orm?
-# form communication with FE react.js
-@app.route('/add_post', methods = ['POST'])
-def add_post():
-	n_post = request.form.get('new_post')
-	if n_post:
-		# some validation logic need to be implemented
-		return render_template(url_for('index'))
-	return render_template('add_post.html', )
+@app.route('/post/<int:userId>', methods=['GET' ,'POST'])
+def get_userPost(userId):
+    kPost_ = kPost() 
+    userPost = kPost_.display_userPost(userId=userId)
+    return jsonify(userPost)
 
-# to be modified to suit rest api, how to route?
-@app.route('/search', methods = ['POST'])
-def search():
-	return jsonify(ret_value)
-
-@app.route('/', methods = ['POST'])
-def index():
-	form = request.form.get('signIn')
-	if form.validate_on_submit():
-		pass
-		return redirect(url_for('.index'))
-    return render_template('index.html', form = form, name = session.get('name'), known = session.get('known', false))
-        # return send_from_directory(app.static_folder, 'index.html')
-	# return render_template('index.html')
-
-@app.route('/api/<name>')
-def route_all_user_x_post(name):
-	pass
-
+@app.route('/createuser', methods=['POST'])
+def get_userPost():
+    kPost_ = kPost() 
+    userPost = kPost_.display_userPost(userId=userId)
+    return render_template('index.html', form = form)
 if __name__ == '__main__':
-	app.run(debug = True, port = 3003)
+	app.run(debug = True)
