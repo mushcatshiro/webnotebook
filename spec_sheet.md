@@ -19,6 +19,8 @@
 
 ### user-related
 
+#### ETA 8/11 2359
+
 	- login/logout
 		- username, password
 		- auth token, permission?, JWT
@@ -34,14 +36,20 @@
 
 ### post related
 
-	- get post by userid
-		- automatically redirect upon login
-		- JWT
-	- get all post
+#### ETA 9/11 2359
+
+	- get post by userid ('/post/<int:userId>')
+		- currently only grabs post based on user id provided
+			- automatically redirect upon login
+			- JWT
+	- get all post 
 		- homepage/mainpage
-	- get post by title
-		- title/any input
-		- return post
-	- post post
-		- title, content, others, userid (separately for db), JWT
-		- create post
+	- get post by title ('/post/<title>')
+		- currently grabs post based on post title
+			- title/any input
+			- return post
+	- post post ('/posts/<int:num>', '/posts/')
+		- currently grabs post based on the number of post provided
+		- if using 2nd route '/posts/', returns all post)
+			- title, content, others, userid (separately for db), JWT
+			- create post
