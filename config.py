@@ -1,10 +1,12 @@
 import os
 
-basedir = os.oth.abspath(os.path.dirname(__file__))
+# basedir = os.path.abspath(os.path.dirname(__file__))
+# /home/mushcat/webnotebook
 
 class config:
 	"""docstring for config"""
 	SECRET_KEY = os.environ.get('SECRET_KEY') or "r4Nd0mS5cRe7"
+	SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 	@staticmethod
 	def init_app(app):
@@ -12,7 +14,7 @@ class config:
 
 class DevConfig(config):
 	DEBUG = True
-	SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(basedir, 'data-dev.sqlite')
+	SQLALCHEMY_DATABASE_URI = 'sqlite:///data-dev.db'
 
 class TestConfig(config):
 	TESTING = True

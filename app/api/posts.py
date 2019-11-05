@@ -7,17 +7,13 @@ from ..model import kPost, user
 def get_userPost(userId):
     kPost_ = kPost() 
     userPost = kPost_.display_userPost(userId=userId)
-    response = jsonify(userPost)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return jsonify(userPost)
 
 @api.route('/post/<title>', methods=['GET' ,'POST'])
 def searchPost_bytitle(title):
     kPost_ = kPost() 
     returnPost = kPost_.readRow(title=title)
-    response = jsonify(returnPost)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return jsonify(returnPost)
 
 @api.route('/posts/<int:num>', methods=['GET' ,'POST'])
 @api.route('/posts/', methods=['GET' ,'POST'])
@@ -26,9 +22,7 @@ def searchPost(num = None):
         num = 3
     kPost_ = kPost() 
     returnPost = kPost_.readRow(total=num)
-    response = jsonify(returnPost)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return jsonify(returnPost)
 
 """
 @api.route('/createPost/', methods=['POST'])
