@@ -87,7 +87,7 @@ class Role(db.Model):
     name = db.Column(db.String(64), unique=True)
     default = db.Column(db.Boolean, default=False, index=True)
     permissions = db.Column(db.Integer)
-    users = db.relationship('user', backref='role', lazy='dynamic') # 'user' refers to the class name, backref is the psuedo column name use to link user to role
+    users = db.relationship('User', backref='role', lazy='dynamic') # 'user' refers to the class name, backref is the psuedo column name use to link user to role
 
     def __init__(self, **kwargs):
         super(Role, self).__init__(**kwargs)
@@ -129,8 +129,8 @@ class Role(db.Model):
         
 
 
-class user(UserMixin, db.Model):
-    """docstring for user"""
+class User(UserMixin, db.Model):
+    """docstring for User"""
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
     userName = db.Column(db.String(8), unique = True, index = True)
@@ -173,7 +173,7 @@ class user(UserMixin, db.Model):
     def to_json(self):
         json_user = {
             'url': url_for('api.get_user', id=self.id),
-            'username': self.username,
+            'username': self.userName,
             'member_since': self.member_since,
             'last_seen': self.last_seen,
             'posts_url': url_for('api.get_user_posts', id=self.id),
@@ -198,7 +198,7 @@ class user(UserMixin, db.Model):
         return User.query.get(data['id'])
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User %r>' % self.userName
 
 
 class AnonymousUser(AnonymousUserMixin):

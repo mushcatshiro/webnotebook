@@ -1,6 +1,6 @@
 from flask import jsonify, request, current_app, url_for
 from . import api
-from ..model import kPost, user
+from ..model import kPost, User
 
 
 @api.route('/post/<int:userId>', methods=['GET' ,'POST'])
