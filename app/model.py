@@ -4,7 +4,7 @@
 import pandas as pd
 import json
 import random
-from . import db
+from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin
 # import os
@@ -177,15 +177,13 @@ class User(UserMixin, db.Model):
             'member_since': self.member_since,
             'last_seen': self.last_seen,
             'posts_url': url_for('api.get_user_posts', id=self.id),
-            'followed_posts_url': url_for('api.get_user_followed_posts',
-                                          id=self.id),
+            'followed_posts_url': url_for('api.get_user_followed_posts', id=self.id),
             'post_count': self.posts.count()
         }
         return json_user
 
     def generate_auth_token(self, expiration):
-        s = Serializer(current_app.config['SECRET_KEY'],
-                       expires_in=expiration)
+        s = Serializer(current_app.config['SECRET_KEY'], expires_in=expiration)
         return s.dumps({'id': self.id}).decode('utf-8')
 
     @staticmethod
@@ -200,6 +198,9 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User %r>' % self.userName
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 class AnonymousUser(AnonymousUserMixin):
     def can(self, permissions):

@@ -22,3 +22,4 @@ def new_user():
     db.session.add(user)
     db.session.commit()
     return (jsonify('success!'))
+

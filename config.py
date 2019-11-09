@@ -7,6 +7,7 @@ class config:
 	"""docstring for config"""
 	SECRET_KEY = os.environ.get('SECRET_KEY') or "r4Nd0mS5cRe7"
 	SQLALCHEMY_TRACK_MODIFICATIONS = True
+	REMEMBER_COOKIE_DURATION = 86400
 
 	@staticmethod
 	def init_app(app):

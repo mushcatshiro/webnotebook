@@ -10,10 +10,28 @@ body {
 	font-size: 16;
 	background-color: silver;
 	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-areas: 
+		"container";
+	grid-auto-rows: 800px;
+}
+
+/*header {
+	position: absolute;
+	right: 0;
+	top: 0;
+	left: 0;
+	padding: 2px;
+	background-color: #efefef;
+	text-align: center;
+	font-size: 100;
+}*/
+
+div#container {
+	display: grid;
 	grid-template-columns: 1fr 4fr 1fr;
 	grid-template-areas: 
-		".. content ..";
-	grid-auto-rows: 800px;
+	". content .";
 }
 
 div#pad1 {

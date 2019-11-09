@@ -9,6 +9,14 @@
     />
   </head>
   <body>
+    {% block title %} {% endblock %}
+    <header>
+      {% if current_user.is_authenticated %}
+      <ul><a href="{{ url_for('main.logout') }}">Log Out</a></ul>
+      {% else %}
+      <ul><a href="{{ url_for('main.login') }}">Log In</a></ul>
+      {% endif %}
+    </header>
     <div class="container">
       <div id="pad1">
         padding
@@ -16,6 +24,7 @@
       <div id="content">
         <div id="nav">
           left box add post, search
+          {% block navbar %} {% endblock %}
         </div>
         <div id="livetiles">
           {% block livetiles %} {% endblock %}
