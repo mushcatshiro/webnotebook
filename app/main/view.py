@@ -4,13 +4,21 @@ from . import main
 from ..model import kPost, User
 from .. import db
 from ..forms import RegistrationForm, LoginForm
-
+from ..decorators import permission_required
 
 status_green = "complete"
 
 @main.route('/post/<int:userId>', methods=['GET' ,'POST'])
 @login_required
 def get_userPost(userId):
+    kPost_ = kPost() 
+    userPost = kPost_.display_userPost(userId=userId)
+    return jsonify(userPost)
+
+@main.route('/create', methods=['GET' ,'POST'])
+@login_required
+@permission_required(Permission.WRITE)
+def createPost():
     kPost_ = kPost() 
     userPost = kPost_.display_userPost(userId=userId)
     return jsonify(userPost)

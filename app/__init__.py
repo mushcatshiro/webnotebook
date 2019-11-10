@@ -4,6 +4,7 @@ from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask_cors import CORS
 from config import config
+from model import Role
 
 db = SQLAlchemy()
 cors = CORS()
@@ -20,6 +21,8 @@ def create_app(config_name):
 	cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
 	bootstrap.init_app(app)
 	login_manager.init_app(app)
+
+	Role.insert_roles()
 
 	# attach routes and custom error pages here
 	from .api import api as api_blueprint

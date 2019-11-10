@@ -1,6 +1,7 @@
 from flask import jsonify, request, current_app, url_for
 from . import api
 from ..model import kPost, User
+from .decorators import permission_required
 
 
 @api.route('/post/<int:userId>', methods=['GET' ,'POST'])
@@ -24,13 +25,11 @@ def searchPost(num = None):
     returnPost = kPost_.readRow(total=num)
     return jsonify(returnPost)
 
-"""
 @api.route('/createPost/', methods=['POST'])
+@permission_required(Permission.WRITE)
 def createPost():
     post = kPost.from_json(request.json)
     post.author = g.current_user
-    # db.session.add(post)
-    # db.session.commit()
-    return jsonify(post.to_json()), 201, \
-        {'Location': url_for('api.get_post', id=post.id)}
-"""
+    db.session.add(post)
+    db.session.commit()
+    return jsonify(post.to_json()), 201, {'Location': url_for('api.get_post', id=post.id)}

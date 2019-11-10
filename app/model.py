@@ -74,6 +74,17 @@ class kPost:
         returnValue = []
         return postSearching(rowList = rowList, df = df)
 
+    def to_json(self):
+        json_post = {
+            'url': url_for('api.get_post', id=self.id),
+            'title' : title,
+            'content': content,
+            'relatedId' : relatedId,
+            'resource' : resource,
+            'author_url': url_for('api.get_user', id=self.author_id)
+        }
+        return json_post
+
 class Permission:
     """docstring for Permission"""
     READ = 0
@@ -96,9 +107,9 @@ class Role(db.Model):
 
     @staticmethod
     def insert_roles():
-        roles = {'invalidatedUser': [Permission.READ], 'validatedUser': [Permission.READ, Permission.WRITE], 'Administrator': [Permission.READ, Permission.WRITE, Permission.ADMIN], }
+        roles = {'validatedUser': [Permission.READ, Permission.WRITE], 'Administrator': [Permission.READ, Permission.WRITE, Permission.ADMIN], }
         
-        default_role = 'invalidatedUser'
+        default_role = 'validatedUser'
         for r in roles:
             role = Role.query.filter_by(name=r).first()
             if role is None:
@@ -137,6 +148,12 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id')) # 'roles' refers to the table name
+
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+        if self.role_id is None:
+            if self.role_id is None:
+                self.role_id = Role.query.filter_by(default=True).first()
 
     @property
     def password(self):
