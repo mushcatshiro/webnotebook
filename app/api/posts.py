@@ -1,7 +1,8 @@
 from flask import jsonify, request, current_app, url_for
 from . import api
-from ..model import kPost, User
+from ..model import kPost, User, Permission
 from .decorators import permission_required
+from .errors import forbidden
 
 
 @api.route('/post/<int:userId>', methods=['GET' ,'POST'])

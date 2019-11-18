@@ -7,6 +7,8 @@ import random
 from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from flask import current_app
 # import os
 
 # Please change the csv file path in below variable
